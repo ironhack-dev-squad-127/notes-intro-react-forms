@@ -40,7 +40,20 @@ class App extends React.Component {
       category: this.state.category
     }
     this.setState({
-      todos: [...this.state.todos, newTodo]
+      todos: [...this.state.todos, newTodo],
+      item: ''
+    })
+  }
+  deleteTodo(indexToRemove) {
+    console.log(indexToRemove)
+
+    // // Forbidden solution, we should never modify the state without setState
+    // this.state.todos.splice(indexToRemove, 1)
+
+    let copyTodos = [...this.state.todos] // Creation of a copy
+    copyTodos.splice(indexToRemove, 1) // If we splice on copyTodos, we don't change this.state.todos
+    this.setState({
+      todos: copyTodos,
     })
   }
   render() {
@@ -83,7 +96,11 @@ class App extends React.Component {
             {this.state.todos.map((todo,i) => (<tr key={i}>
               <td>{todo.item}</td>
               <td>{todo.category}</td>
-              <td><button>Delete</button></td>
+              <td>
+                <button onClick={()=>this.deleteTodo(i)}>
+                  Delete
+                </button>
+              </td>
             </tr>))}
           </tbody>
         </table>
