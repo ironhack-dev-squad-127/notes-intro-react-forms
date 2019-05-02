@@ -18,9 +18,17 @@ class App extends React.Component {
     console.log(event)
     console.log(event.target)
     console.log(event.target.value)
+    console.log(event.target.name)
+
     this.setState({
-      item: event.target.value
+      [event.target.name]: event.target.value,
     })
+  }
+  getErrorMessage() {
+    // TODO: return a message when the item or the category is empty
+    // You will have to use the state
+    if (true) return '.....'
+    else return ''
   }
   render() {
     return (
@@ -44,6 +52,10 @@ class App extends React.Component {
           </select>
           <button>Add</button>
         </form>
+
+        {this.getErrorMessage() && <div className="error-message">
+          {this.getErrorMessage()}
+        </div>}
 
         <table>
           <thead>
