@@ -47,8 +47,7 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>Todo List</h1>
-        {/* Perfect to debug: <pre> and JSON.stringify */}
-        <pre>this.state = {JSON.stringify(this.state,null,4)}</pre>
+        
         <form onSubmit={this.handleSubmit}>
           <input 
             type="text" 
@@ -81,13 +80,16 @@ class App extends React.Component {
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>...</td>
-              <td>...</td>
+            {this.state.todos.map((todo,i) => (<tr key={i}>
+              <td>{todo.item}</td>
+              <td>{todo.category}</td>
               <td><button>Delete</button></td>
-            </tr>
+            </tr>))}
           </tbody>
         </table>
+
+        {/* Perfect to debug: <pre> and JSON.stringify */}
+        <pre>this.state = {JSON.stringify(this.state,null,4)}</pre>
       </div>
     );
   }
