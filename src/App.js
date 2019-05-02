@@ -27,13 +27,17 @@ class App extends React.Component {
   getErrorMessage() {
     // TODO: return a message when the item or the category is empty
     // You will have to use the state
-    if (true) return '.....'
-    else return ''
+    if (!this.state.item && !this.state.category) return 'Please write an item and select a category'
+    if (!this.state.item) return 'Please write an item'
+    if (!this.state.category) return 'Please select a category'
+    return ''
   }
   render() {
     return (
       <div className="App">
         <h1>Todo List</h1>
+        {/* Perfect to debug: <pre> and JSON.stringify */}
+        <pre>this.state = {JSON.stringify(this.state,null,4)}</pre>
         <form>
           <input 
             type="text" 
@@ -50,7 +54,7 @@ class App extends React.Component {
             <option value="coding">Coding</option>
             <option value="other">Other</option>
           </select>
-          <button>Add</button>
+          <button disabled={this.getErrorMessage()}>Add</button>
         </form>
 
         {this.getErrorMessage() && <div className="error-message">
