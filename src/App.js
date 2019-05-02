@@ -8,8 +8,9 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      item: 'Buy carrots', // Inital value for the item
-      category: 'shopping', // Inital value for the category
+      item: '', // Inital value for the item
+      category: '', // Inital value for the category
+      todos: []
     }
     this.handleChange = this.handleChange.bind(this) // Now, the value of `this` in the method `handleChange` is always going to be the current `this` (the current component)
   }
@@ -32,13 +33,23 @@ class App extends React.Component {
     if (!this.state.category) return 'Please select a category'
     return ''
   }
+  handleSubmit = (e) => {
+    e.preventDefault() // Stop the redirection (default behavior)
+    let newTodo = {
+      item: this.state.item,
+      category: this.state.category
+    }
+    this.setState({
+      todos: [...this.state.todos, newTodo]
+    })
+  }
   render() {
     return (
       <div className="App">
         <h1>Todo List</h1>
         {/* Perfect to debug: <pre> and JSON.stringify */}
         <pre>this.state = {JSON.stringify(this.state,null,4)}</pre>
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input 
             type="text" 
             name="item" 
@@ -65,7 +76,7 @@ class App extends React.Component {
           <thead>
             <tr>
               <th>Item</th>
-              <th>Categroy</th>
+              <th>Category</th>
               <th>Action</th>
             </tr>
           </thead>
